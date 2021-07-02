@@ -1,0 +1,3 @@
+rootProject.name = "umeng_common"
+include ':app'
+include ':lib'

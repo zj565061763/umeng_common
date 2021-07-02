@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+def libGroupId = "com.sd.lib.umeng"
+def libArtifactId = "umeng_common"
+def libVersionCode = 20210702
+def libVersionName = "9.4.0-v01"
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode libVersionCode
+        versionName libVersionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //必选
+    api 'com.umeng.umsdk:common:9.4.0'
+    //必选
+    api 'com.umeng.umsdk:asms:1.2.3'
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = libGroupId
+                artifactId = libArtifactId
+                version = libVersionName
+
+                // 上传源码
+                artifact generateSourcesJar
+            }
+        }
+    }
+}
