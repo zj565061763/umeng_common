@@ -6,7 +6,7 @@ plugins {
 def libGroupId = "com.sd.lib.umeng"
 def libArtifactId = "umeng_common"
 def libVersionCode = 20210702
-def libVersionName = "9.4.0-v01"
+def libVersionName = "9.4.0-v02"
 
 android {
     compileSdkVersion 30
