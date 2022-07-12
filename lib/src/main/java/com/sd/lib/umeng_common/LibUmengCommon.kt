@@ -11,6 +11,8 @@ object LibUmengCommon {
     /**
      * 预初始化
      */
+    @JvmOverloads
+    @JvmStatic
     fun preInit(
         context: Context,
         appKey: String,
@@ -26,6 +28,8 @@ object LibUmengCommon {
     /**
      * 初始化
      */
+    @JvmOverloads
+    @JvmStatic
     fun init(
         context: Context,
         pushMessageSecret: String,
