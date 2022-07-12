@@ -1,37 +1,44 @@
-package com.sd.lib.umeng_common;
+package com.sd.lib.umeng_common
 
-import android.content.Context;
+import android.content.Context
+import com.umeng.analytics.MobclickAgent
+import com.umeng.commonsdk.UMConfigure
 
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
-
-public class LibUmengCommon {
-    private LibUmengCommon() {
-    }
+object LibUmengCommon {
+    private var _appKey = ""
+    private var _channel = ""
 
     /**
      * 预初始化
      */
-    public static void preInit(Context context) {
-        final String appKey = context.getResources().getString(R.string.lib_umeng_common_app_key);
-        final String channel = context.getResources().getString(R.string.lib_umeng_common_channel);
-        UMConfigure.preInit(context, appKey, channel);
+    fun preInit(
+        context: Context,
+        appKey: String,
+        channel: String = "umeng",
+    ) {
+        require(appKey.isNotEmpty()) { "appKey is empty" }
+        require(channel.isNotEmpty()) { "channel is empty" }
+        _appKey = appKey
+        _channel = channel
+        UMConfigure.preInit(context, appKey, channel)
     }
 
     /**
      * 初始化
      */
-    public static void init(Context context) {
-        final String appKey = context.getResources().getString(R.string.lib_umeng_common_app_key);
-        final String channel = context.getResources().getString(R.string.lib_umeng_common_channel);
-        final String pushMessageSecret = context.getResources().getString(R.string.lib_umeng_common_push_mssage_secret);
-
+    fun init(
+        context: Context,
+        pushMessageSecret: String,
+        type: Int = UMConfigure.DEVICE_TYPE_PHONE,
+    ) {
+        require(pushMessageSecret.isNotEmpty()) { "pushMessageSecret is empty" }
+        check(_appKey.isNotEmpty()) { "You should call preInit before this" }
+        check(_channel.isNotEmpty()) { "You should call preInit before this" }
         UMConfigure.init(context,
-                appKey,
-                channel,
-                UMConfigure.DEVICE_TYPE_PHONE,
-                pushMessageSecret);
-
-        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+            _appKey,
+            _channel,
+            type,
+            pushMessageSecret)
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
     }
 }
