@@ -6,7 +6,7 @@ plugins {
 
 val libGroupId = "com.sd.lib.umeng"
 val libArtifactId = "umeng_common"
-val libVersionName = "9.5.6-v01"
+val libVersionName = "9.5.6-v02"
 
 android {
     namespace = "com.sd.lib.umeng.common"
