@@ -1,9 +1,12 @@
 package com.sd.lib.umeng.common
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.umeng.commonsdk.UMConfigure
 
+@SuppressLint("StaticFieldLeak")
 object LibUmengCommon {
+    private var _context: Context? = null
     private var _appKey = ""
     private var _channel = ""
 
@@ -18,6 +21,7 @@ object LibUmengCommon {
     ) {
         require(appKey.isNotEmpty()) { "appKey is empty" }
         require(channel.isNotEmpty()) { "channel is empty" }
+        _context = context.applicationContext
         _appKey = appKey
         _channel = channel
         UMConfigure.preInit(context, appKey, channel)
@@ -30,10 +34,11 @@ object LibUmengCommon {
      */
     @JvmOverloads
     fun init(
-        context: Context,
         pushMessageSecret: String = "",
         type: Int = UMConfigure.DEVICE_TYPE_PHONE,
     ) {
+        val context = _context ?: error("You should call preInit before this")
+
         val appKey = _appKey
         check(appKey.isNotEmpty()) { "You should call preInit before this" }
 
