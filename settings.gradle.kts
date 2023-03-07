@@ -5,15 +5,16 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven { url  'https://repo1.maven.org/maven2/'}
+        maven("https://repo1.maven.org/maven2/")
     }
 }
 
 rootProject.name = "umeng_common"
-include ':app'
-include ':lib'
+include(":app")
+include(":lib")

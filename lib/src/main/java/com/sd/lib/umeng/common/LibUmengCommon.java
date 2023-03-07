@@ -1,4 +1,4 @@
-package com.sd.lib.umeng_common;
+package com.sd.lib.umeng.common;
 
 import android.content.Context;
 import android.text.TextUtils;
